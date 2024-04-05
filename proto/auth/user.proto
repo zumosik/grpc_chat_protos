@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option go_package = "pb/";
+
+service UserService {
+	rpc CreateUser(CreateUserReq) returns (CreateUserResp) {}
+} 
+
+message Token {
+	bytes Token = 1;
+}
+
+message CreateUserReq {
+	string username = 1;
+	string password = 2;
+	optional string real_name = 3;
+	optional string real_surname = 4;
+	optional int32 	real_age = 5;
+}
+
+message CreateUserResp {
+	bool ok = 1;
+	Token token = 2;
+}
+
