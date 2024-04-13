@@ -51,7 +51,7 @@ message LoginRequest {
 
 message LoginResponse {
   bool success = 1;
-  bytes token = 2;
+  Token token = 2;
 }
 
 message CreateUserRequest {
