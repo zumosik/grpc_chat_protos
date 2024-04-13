@@ -12,20 +12,44 @@ message User {
   string id = 1;
   string username = 2;
   string password = 3;
+  string email = 4;
 }
 
 service AuthService {
   rpc Login(LoginRequest) returns (LoginResponse) {}
 
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
-  rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
+
   rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
   rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {}
+
+  rpc GetUserByID(GetUserByIdRequest) returns (GetUserByIdResponse) {}
+  rpc GetUserByEmail(GetUserByEmailRequest) returns (GetUserByEmailResponse) {}
+  rpc GetUserByUsername(GetUserByUsernameRequest) returns (GetUserByUsernameResponse) {}
+
+}
+
+message GetUserByUsernameRequest {
+  string username = 1;
+}
+message GetUserByUsernameResponse {
+  bool success = 1;
+  User user = 2;
+}
+
+message GetUserByEmailRequest {
+  string email = 1;
+}
+
+message GetUserByEmailResponse {
+  bool success = 1;
+  User user = 2;
 }
 
 message LoginRequest {
   string username = 1;
   string password = 2;
+  string email = 3;
 }
 
 message LoginResponse {
@@ -36,6 +60,7 @@ message LoginResponse {
 message CreateUserRequest {
   string username = 1;
   string password = 2;
+  string email = 3;
 }
 
 message CreateUserResponse {
@@ -43,19 +68,20 @@ message CreateUserResponse {
   User user = 2;
 }
 
-message GetUserRequest {
+message GetUserByIdRequest {
   string id = 1;
 }
 
-message GetUserResponse {
+message GetUserByIdResponse {
   bool success = 1;
   User user = 3;
 }
 
 message UpdateUserRequest {
-  string id = 1;
+  Token token = 1;
   string username = 2;
   string password = 3;
+  string email = 4;
 }
 
 message UpdateUserResponse {
@@ -64,7 +90,7 @@ message UpdateUserResponse {
 }
 
 message DeleteUserRequest {
-  string id = 1;
+  Token token = 1;
 }
 
 message DeleteUserResponse {
