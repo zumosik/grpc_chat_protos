@@ -23,28 +23,25 @@ service AuthService {
   rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
   rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {}
 
-  rpc GetUserByID(GetUserByIdRequest) returns (GetUserByIdResponse) {}
-  rpc GetUserByEmail(GetUserByEmailRequest) returns (GetUserByEmailResponse) {}
-  rpc GetUserByUsername(GetUserByUsernameRequest) returns (GetUserByUsernameResponse) {}
+  rpc GetUserByToken(GetUserByTokenRequest) returns (GetUserResponse) {}
+  rpc GetUserByEmail(GetUserByEmailRequest) returns (GetUserResponse) {}
+  rpc GetUserByUsername(GetUserByUsernameRequest) returns (GetUserResponse) {}
 
+}
+
+message GetUserResponse {
+  bool success = 1;
+  User user = 2;
 }
 
 message GetUserByUsernameRequest {
   string username = 1;
-}
-message GetUserByUsernameResponse {
-  bool success = 1;
-  User user = 2;
 }
 
 message GetUserByEmailRequest {
   string email = 1;
 }
 
-message GetUserByEmailResponse {
-  bool success = 1;
-  User user = 2;
-}
 
 message LoginRequest {
   string username = 1;
@@ -68,13 +65,8 @@ message CreateUserResponse {
   User user = 2;
 }
 
-message GetUserByIdRequest {
-  string id = 1;
-}
-
-message GetUserByIdResponse {
-  bool success = 1;
-  User user = 3;
+message GetUserByTokenRequest {
+  Token tokem = 1;
 }
 
 message UpdateUserRequest {
