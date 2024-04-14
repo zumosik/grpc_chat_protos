@@ -10,8 +10,8 @@ generate_go:
 
 generate_npm:
 	mkdir -p npm/js && \
-	mkdir -p npm/grpc-web && \
 	\
 	find proto -name "*.proto" -exec protoc -I proto {} \
 		--js_out=import_style=commonjs,binary:./npm/js \
-		--grpc-web_out=import_style=commonjs,mode=grpcwebtext:./npm/grpc-web \;
+		--grpc-web_out=import_style=commonjs,mode=grpcwebtext:./npm/js \
+		--plugin=protoc-gen-ts=./npm/node_modules/.bin/protoc-gen-ts \;

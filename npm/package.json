@@ -1,0 +1,29 @@
+{
+  "name": "@zumosik/grpc_chat_protos",
+  "version": "1.0.0",
+  "description": "generated files for grpc proto files for chat app",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zumosik/grpc_chat_protos.git"
+  },
+  "keywords": [
+    "grpc"
+  ],
+  "author": "zumosik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zumosik/grpc_chat_protos/issues"
+  },
+  "homepage": "https://github.com/zumosik/grpc_chat_protos#readme",
+  "files": [
+    "js/*"
+  ],
+  "dependencies": {
+    "google-protobuf": "^3.21.2",
+    "grpc-web": "^1.5.0",
+    "protoc-gen-ts": "^0.8.7"
+  }
+}
