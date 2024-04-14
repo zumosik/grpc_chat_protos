@@ -8,12 +8,11 @@ message Token {
   bytes token = 1;
 }
 
-message User {
-  string id = 1;
-  string username = 2;
-  string password = 3;
-  string email = 4;
+message PublicUser {
+  string username = 1;
+  string email = 2;
 }
+
 
 service AuthService {
   rpc Login(LoginRequest) returns (LoginResponse) {}
@@ -31,7 +30,7 @@ service AuthService {
 
 message GetUserResponse {
   bool success = 1;
-  User user = 2;
+  PublicUser public_user = 2;
 }
 
 message GetUserByUsernameRequest {
@@ -62,7 +61,7 @@ message CreateUserRequest {
 
 message CreateUserResponse {
   bool success = 1;
-  User user = 2;
+  PublicUser user = 2;
 }
 
 message GetUserByTokenRequest {
@@ -78,7 +77,7 @@ message UpdateUserRequest {
 
 message UpdateUserResponse {
   bool success = 1;
-  User user = 2;
+  PublicUser new_user = 2;
 }
 
 message DeleteUserRequest {
@@ -87,5 +86,4 @@ message DeleteUserRequest {
 
 message DeleteUserResponse {
   bool success = 1;
-  string message = 2;
 }
