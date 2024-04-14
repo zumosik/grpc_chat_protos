@@ -1,11 +1,17 @@
-generate:
-	mkdir -p gen && \
-	mkdir -p gen/go && \
+all: generate_go generate_npm
+
+generate_go:
+	mkdir -p go && \
 	\
 	find proto -name "*.proto" -exec protoc -I proto {} \
-		--go_out=./gen/go/ --go_opt=paths=source_relative \
-		--go-grpc_out=./gen/go/ --go-grpc_opt=paths=source_relative \
-		--experimental_allow_proto3_optional {} \;
+		--go_out=./go/ --go_opt=paths=source_relative \
+		--go-grpc_out=./go/ --go-grpc_opt=paths=source_relative \;
 
 
-
+generate_npm:
+	mkdir -p npm/js && \
+	mkdir -p npm/grpc-web && \
+	\
+	find proto -name "*.proto" -exec protoc -I proto {} \
+		--js_out=import_style=commonjs,binary:./npm/js \
+		--grpc-web_out=import_style=commonjs,mode=grpcwebtext:./npm/grpc-web \;

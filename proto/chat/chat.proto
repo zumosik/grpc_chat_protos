@@ -28,5 +28,5 @@ message SendMsgRequest {
 
 message ChatResponse {
   bool success = 1;
-  optional string errorMsg = 2;
+  string errorMsg = 2;
 }
