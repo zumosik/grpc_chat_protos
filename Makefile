@@ -13,5 +13,4 @@ generate_npm:
 	\
 	find proto -name "*.proto" -exec protoc -I proto {} \
 		--js_out=import_style=commonjs,binary:./npm/js \
-		--grpc-web_out=import_style=commonjs,mode=grpcwebtext:./npm/js \
-		--plugin=protoc-gen-ts=./npm/node_modules/.bin/protoc-gen-ts \;
+		--grpc-web_out=import_style=typescript,mode=grpcwebtext:./npm/js \;
