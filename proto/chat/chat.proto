@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package chat;
 
+import "google/protobuf/timestamp.proto";
+
 option go_package = "chat/";
 
 message Token {
@@ -11,22 +13,34 @@ message Token {
 message Message {
   string chatID = 1;
   string text = 2;
-  // optional string info = 3;  add some more fields here (file, image, etc)
+  oneof payload {
+    string file = 3;
+    string image = 4;
+    string sticker = 5;
+  }
 }
 
 service ChatService {
-  rpc SendMessage(SendMsgRequest) returns (ChatResponse); // send message to chat
-
-  // TODO: create more methods here
+  rpc Stream(stream StreamRequest) returns (stream StreamResponse) {}
 }
 
 
-message SendMsgRequest {
-  Token authToken = 1;
-  Message chatMessage = 2;
+message StreamRequest {
+  Token token = 1;
+  Message msg = 2;
 }
 
-message ChatResponse {
-  bool success = 1;
-  string errorMsg = 2;
+
+message StreamResponse {
+  google.protobuf.Timestamp timestamp = 1;
+
+  oneof event {
+      Message  client_message  = 2;
+      NewUserOnline user_online  = 3;
+      // TODO: Add more events
+  }
+
+  message NewUserOnline {
+    string userID = 1;
+  }
 }
