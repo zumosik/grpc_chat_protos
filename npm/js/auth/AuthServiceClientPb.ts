@@ -340,5 +340,48 @@ export class AuthServiceClient {
     this.methodDescriptorGetUserByUsername);
   }
 
+  methodDescriptorVerifyUser = new grpcWeb.MethodDescriptor(
+    '/auth.AuthService/VerifyUser',
+    grpcWeb.MethodType.UNARY,
+    auth_auth_pb.VerifyUserRequest,
+    auth_auth_pb.VerifyUserResponse,
+    (request: auth_auth_pb.VerifyUserRequest) => {
+      return request.serializeBinary();
+    },
+    auth_auth_pb.VerifyUserResponse.deserializeBinary
+  );
+
+  verifyUser(
+    request: auth_auth_pb.VerifyUserRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<auth_auth_pb.VerifyUserResponse>;
+
+  verifyUser(
+    request: auth_auth_pb.VerifyUserRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: auth_auth_pb.VerifyUserResponse) => void): grpcWeb.ClientReadableStream<auth_auth_pb.VerifyUserResponse>;
+
+  verifyUser(
+    request: auth_auth_pb.VerifyUserRequest,
+    metadata?: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: auth_auth_pb.VerifyUserResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/auth.AuthService/VerifyUser',
+        request,
+        metadata || {},
+        this.methodDescriptorVerifyUser,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/auth.AuthService/VerifyUser',
+    request,
+    metadata || {},
+    this.methodDescriptorVerifyUser);
+  }
+
 }
 

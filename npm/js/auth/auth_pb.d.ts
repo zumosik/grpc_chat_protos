@@ -29,6 +29,9 @@ export class PublicUser extends jspb.Message {
   getEmail(): string;
   setEmail(value: string): PublicUser;
 
+  getVerified(): boolean;
+  setVerified(value: boolean): PublicUser;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): PublicUser.AsObject;
   static toObject(includeInstance: boolean, msg: PublicUser): PublicUser.AsObject;
@@ -41,6 +44,49 @@ export namespace PublicUser {
   export type AsObject = {
     username: string,
     email: string,
+    verified: boolean,
+  }
+}
+
+export class VerifyUserRequest extends jspb.Message {
+  getVerificationCode(): string;
+  setVerificationCode(value: string): VerifyUserRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): VerifyUserRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: VerifyUserRequest): VerifyUserRequest.AsObject;
+  static serializeBinaryToWriter(message: VerifyUserRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): VerifyUserRequest;
+  static deserializeBinaryFromReader(message: VerifyUserRequest, reader: jspb.BinaryReader): VerifyUserRequest;
+}
+
+export namespace VerifyUserRequest {
+  export type AsObject = {
+    verificationCode: string,
+  }
+}
+
+export class VerifyUserResponse extends jspb.Message {
+  getSuccess(): boolean;
+  setSuccess(value: boolean): VerifyUserResponse;
+
+  getPublicUser(): PublicUser | undefined;
+  setPublicUser(value?: PublicUser): VerifyUserResponse;
+  hasPublicUser(): boolean;
+  clearPublicUser(): VerifyUserResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): VerifyUserResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: VerifyUserResponse): VerifyUserResponse.AsObject;
+  static serializeBinaryToWriter(message: VerifyUserResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): VerifyUserResponse;
+  static deserializeBinaryFromReader(message: VerifyUserResponse, reader: jspb.BinaryReader): VerifyUserResponse;
+}
+
+export namespace VerifyUserResponse {
+  export type AsObject = {
+    success: boolean,
+    publicUser?: PublicUser.AsObject,
   }
 }
 
@@ -189,6 +235,9 @@ export class CreateUserResponse extends jspb.Message {
   hasUser(): boolean;
   clearUser(): CreateUserResponse;
 
+  getVerificationCode(): string;
+  setVerificationCode(value: string): CreateUserResponse;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateUserResponse.AsObject;
   static toObject(includeInstance: boolean, msg: CreateUserResponse): CreateUserResponse.AsObject;
@@ -201,6 +250,7 @@ export namespace CreateUserResponse {
   export type AsObject = {
     success: boolean,
     user?: PublicUser.AsObject,
+    verificationCode: string,
   }
 }
 

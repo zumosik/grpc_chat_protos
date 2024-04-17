@@ -1,5 +1,6 @@
 import * as jspb from 'google-protobuf'
 
+import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb'; // proto import: "google/protobuf/timestamp.proto"
 
 
 export class Token extends jspb.Message {
@@ -29,6 +30,17 @@ export class Message extends jspb.Message {
   getText(): string;
   setText(value: string): Message;
 
+  getFile(): string;
+  setFile(value: string): Message;
+
+  getImage(): string;
+  setImage(value: string): Message;
+
+  getSticker(): string;
+  setSticker(value: string): Message;
+
+  getPayloadCase(): Message.PayloadCase;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Message.AsObject;
   static toObject(includeInstance: boolean, msg: Message): Message.AsObject;
@@ -41,54 +53,101 @@ export namespace Message {
   export type AsObject = {
     chatid: string,
     text: string,
+    file: string,
+    image: string,
+    sticker: string,
+  }
+
+  export enum PayloadCase { 
+    PAYLOAD_NOT_SET = 0,
+    FILE = 3,
+    IMAGE = 4,
+    STICKER = 5,
   }
 }
 
-export class SendMsgRequest extends jspb.Message {
-  getAuthtoken(): Token | undefined;
-  setAuthtoken(value?: Token): SendMsgRequest;
-  hasAuthtoken(): boolean;
-  clearAuthtoken(): SendMsgRequest;
+export class StreamRequest extends jspb.Message {
+  getToken(): Token | undefined;
+  setToken(value?: Token): StreamRequest;
+  hasToken(): boolean;
+  clearToken(): StreamRequest;
 
-  getChatmessage(): Message | undefined;
-  setChatmessage(value?: Message): SendMsgRequest;
-  hasChatmessage(): boolean;
-  clearChatmessage(): SendMsgRequest;
+  getMsg(): Message | undefined;
+  setMsg(value?: Message): StreamRequest;
+  hasMsg(): boolean;
+  clearMsg(): StreamRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): SendMsgRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: SendMsgRequest): SendMsgRequest.AsObject;
-  static serializeBinaryToWriter(message: SendMsgRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): SendMsgRequest;
-  static deserializeBinaryFromReader(message: SendMsgRequest, reader: jspb.BinaryReader): SendMsgRequest;
+  toObject(includeInstance?: boolean): StreamRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: StreamRequest): StreamRequest.AsObject;
+  static serializeBinaryToWriter(message: StreamRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): StreamRequest;
+  static deserializeBinaryFromReader(message: StreamRequest, reader: jspb.BinaryReader): StreamRequest;
 }
 
-export namespace SendMsgRequest {
+export namespace StreamRequest {
   export type AsObject = {
-    authtoken?: Token.AsObject,
-    chatmessage?: Message.AsObject,
+    token?: Token.AsObject,
+    msg?: Message.AsObject,
   }
 }
 
-export class ChatResponse extends jspb.Message {
-  getSuccess(): boolean;
-  setSuccess(value: boolean): ChatResponse;
+export class StreamResponse extends jspb.Message {
+  getTimestamp(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setTimestamp(value?: google_protobuf_timestamp_pb.Timestamp): StreamResponse;
+  hasTimestamp(): boolean;
+  clearTimestamp(): StreamResponse;
 
-  getErrormsg(): string;
-  setErrormsg(value: string): ChatResponse;
+  getClientMessage(): Message | undefined;
+  setClientMessage(value?: Message): StreamResponse;
+  hasClientMessage(): boolean;
+  clearClientMessage(): StreamResponse;
+
+  getUserOnline(): StreamResponse.NewUserOnline | undefined;
+  setUserOnline(value?: StreamResponse.NewUserOnline): StreamResponse;
+  hasUserOnline(): boolean;
+  clearUserOnline(): StreamResponse;
+
+  getEventCase(): StreamResponse.EventCase;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): ChatResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: ChatResponse): ChatResponse.AsObject;
-  static serializeBinaryToWriter(message: ChatResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): ChatResponse;
-  static deserializeBinaryFromReader(message: ChatResponse, reader: jspb.BinaryReader): ChatResponse;
+  toObject(includeInstance?: boolean): StreamResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: StreamResponse): StreamResponse.AsObject;
+  static serializeBinaryToWriter(message: StreamResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): StreamResponse;
+  static deserializeBinaryFromReader(message: StreamResponse, reader: jspb.BinaryReader): StreamResponse;
 }
 
-export namespace ChatResponse {
+export namespace StreamResponse {
   export type AsObject = {
-    success: boolean,
-    errormsg: string,
+    timestamp?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    clientMessage?: Message.AsObject,
+    userOnline?: StreamResponse.NewUserOnline.AsObject,
+  }
+
+  export class NewUserOnline extends jspb.Message {
+    getUserid(): string;
+    setUserid(value: string): NewUserOnline;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): NewUserOnline.AsObject;
+    static toObject(includeInstance: boolean, msg: NewUserOnline): NewUserOnline.AsObject;
+    static serializeBinaryToWriter(message: NewUserOnline, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): NewUserOnline;
+    static deserializeBinaryFromReader(message: NewUserOnline, reader: jspb.BinaryReader): NewUserOnline;
+  }
+
+  export namespace NewUserOnline {
+    export type AsObject = {
+      userid: string,
+    }
+  }
+
+
+  export enum EventCase { 
+    EVENT_NOT_SET = 0,
+    CLIENT_MESSAGE = 2,
+    USER_ONLINE = 3,
   }
 }
 

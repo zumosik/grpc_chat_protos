@@ -39,48 +39,5 @@ export class ChatServiceClient {
     this.options_ = options;
   }
 
-  methodDescriptorSendMessage = new grpcWeb.MethodDescriptor(
-    '/chat.ChatService/SendMessage',
-    grpcWeb.MethodType.UNARY,
-    chat_chat_pb.SendMsgRequest,
-    chat_chat_pb.ChatResponse,
-    (request: chat_chat_pb.SendMsgRequest) => {
-      return request.serializeBinary();
-    },
-    chat_chat_pb.ChatResponse.deserializeBinary
-  );
-
-  sendMessage(
-    request: chat_chat_pb.SendMsgRequest,
-    metadata?: grpcWeb.Metadata | null): Promise<chat_chat_pb.ChatResponse>;
-
-  sendMessage(
-    request: chat_chat_pb.SendMsgRequest,
-    metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: chat_chat_pb.ChatResponse) => void): grpcWeb.ClientReadableStream<chat_chat_pb.ChatResponse>;
-
-  sendMessage(
-    request: chat_chat_pb.SendMsgRequest,
-    metadata?: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: chat_chat_pb.ChatResponse) => void) {
-    if (callback !== undefined) {
-      return this.client_.rpcCall(
-        this.hostname_ +
-          '/chat.ChatService/SendMessage',
-        request,
-        metadata || {},
-        this.methodDescriptorSendMessage,
-        callback);
-    }
-    return this.client_.unaryCall(
-    this.hostname_ +
-      '/chat.ChatService/SendMessage',
-    request,
-    metadata || {},
-    this.methodDescriptorSendMessage);
-  }
-
 }
 

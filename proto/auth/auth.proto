@@ -11,6 +11,7 @@ message Token {
 message PublicUser {
   string username = 1;
   string email = 2;
+  bool verified = 3;
 }
 
 
@@ -26,6 +27,17 @@ service AuthService {
   rpc GetUserByEmail(GetUserByEmailRequest) returns (GetUserResponse) {}
   rpc GetUserByUsername(GetUserByUsernameRequest) returns (GetUserResponse) {}
 
+  rpc VerifyUser(VerifyUserRequest) returns (VerifyUserResponse) {}
+
+}
+
+message VerifyUserRequest {
+  string verification_code = 1;
+}
+
+message VerifyUserResponse {
+  bool success = 1;
+  PublicUser public_user = 2;
 }
 
 message GetUserResponse {
@@ -62,6 +74,7 @@ message CreateUserRequest {
 message CreateUserResponse {
   bool success = 1;
   PublicUser user = 2;
+  string verification_code = 3;
 }
 
 message GetUserByTokenRequest {

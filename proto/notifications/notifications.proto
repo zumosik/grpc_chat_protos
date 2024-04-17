@@ -17,7 +17,7 @@ message NotificationRequest {
 
     message ConfirmEmail {
         string email = 1;
-        string user_id = 2;
+        string verification_code = 2;
     }
 }
 
