@@ -355,3 +355,89 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "auth/auth.proto",
 }
+
+// PrivateServiceClient is the client API for PrivateService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type PrivateServiceClient interface {
+	GetUserByToken(ctx context.Context, in *PrivateGetUserByTokenRequest, opts ...grpc.CallOption) (*PrivateGetUserResponse, error)
+}
+
+type privateServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewPrivateServiceClient(cc grpc.ClientConnInterface) PrivateServiceClient {
+	return &privateServiceClient{cc}
+}
+
+func (c *privateServiceClient) GetUserByToken(ctx context.Context, in *PrivateGetUserByTokenRequest, opts ...grpc.CallOption) (*PrivateGetUserResponse, error) {
+	out := new(PrivateGetUserResponse)
+	err := c.cc.Invoke(ctx, "/auth.PrivateService/GetUserByToken", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// PrivateServiceServer is the server API for PrivateService service.
+// All implementations must embed UnimplementedPrivateServiceServer
+// for forward compatibility
+type PrivateServiceServer interface {
+	GetUserByToken(context.Context, *PrivateGetUserByTokenRequest) (*PrivateGetUserResponse, error)
+	mustEmbedUnimplementedPrivateServiceServer()
+}
+
+// UnimplementedPrivateServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedPrivateServiceServer struct {
+}
+
+func (UnimplementedPrivateServiceServer) GetUserByToken(context.Context, *PrivateGetUserByTokenRequest) (*PrivateGetUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByToken not implemented")
+}
+func (UnimplementedPrivateServiceServer) mustEmbedUnimplementedPrivateServiceServer() {}
+
+// UnsafePrivateServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to PrivateServiceServer will
+// result in compilation errors.
+type UnsafePrivateServiceServer interface {
+	mustEmbedUnimplementedPrivateServiceServer()
+}
+
+func RegisterPrivateServiceServer(s grpc.ServiceRegistrar, srv PrivateServiceServer) {
+	s.RegisterService(&PrivateService_ServiceDesc, srv)
+}
+
+func _PrivateService_GetUserByToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PrivateGetUserByTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PrivateServiceServer).GetUserByToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/auth.PrivateService/GetUserByToken",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PrivateServiceServer).GetUserByToken(ctx, req.(*PrivateGetUserByTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// PrivateService_ServiceDesc is the grpc.ServiceDesc for PrivateService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var PrivateService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "auth.PrivateService",
+	HandlerType: (*PrivateServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetUserByToken",
+			Handler:    _PrivateService_GetUserByToken_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "auth/auth.proto",
+}

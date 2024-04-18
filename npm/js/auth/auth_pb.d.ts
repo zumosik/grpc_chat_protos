@@ -48,6 +48,80 @@ export namespace PublicUser {
   }
 }
 
+export class User extends jspb.Message {
+  getId(): string;
+  setId(value: string): User;
+
+  getUsername(): string;
+  setUsername(value: string): User;
+
+  getEmail(): string;
+  setEmail(value: string): User;
+
+  getVerified(): boolean;
+  setVerified(value: boolean): User;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): User.AsObject;
+  static toObject(includeInstance: boolean, msg: User): User.AsObject;
+  static serializeBinaryToWriter(message: User, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): User;
+  static deserializeBinaryFromReader(message: User, reader: jspb.BinaryReader): User;
+}
+
+export namespace User {
+  export type AsObject = {
+    id: string,
+    username: string,
+    email: string,
+    verified: boolean,
+  }
+}
+
+export class PrivateGetUserByTokenRequest extends jspb.Message {
+  getToken(): Token | undefined;
+  setToken(value?: Token): PrivateGetUserByTokenRequest;
+  hasToken(): boolean;
+  clearToken(): PrivateGetUserByTokenRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): PrivateGetUserByTokenRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: PrivateGetUserByTokenRequest): PrivateGetUserByTokenRequest.AsObject;
+  static serializeBinaryToWriter(message: PrivateGetUserByTokenRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): PrivateGetUserByTokenRequest;
+  static deserializeBinaryFromReader(message: PrivateGetUserByTokenRequest, reader: jspb.BinaryReader): PrivateGetUserByTokenRequest;
+}
+
+export namespace PrivateGetUserByTokenRequest {
+  export type AsObject = {
+    token?: Token.AsObject,
+  }
+}
+
+export class PrivateGetUserResponse extends jspb.Message {
+  getSuccess(): boolean;
+  setSuccess(value: boolean): PrivateGetUserResponse;
+
+  getUser(): User | undefined;
+  setUser(value?: User): PrivateGetUserResponse;
+  hasUser(): boolean;
+  clearUser(): PrivateGetUserResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): PrivateGetUserResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: PrivateGetUserResponse): PrivateGetUserResponse.AsObject;
+  static serializeBinaryToWriter(message: PrivateGetUserResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): PrivateGetUserResponse;
+  static deserializeBinaryFromReader(message: PrivateGetUserResponse, reader: jspb.BinaryReader): PrivateGetUserResponse;
+}
+
+export namespace PrivateGetUserResponse {
+  export type AsObject = {
+    success: boolean,
+    user?: User.AsObject,
+  }
+}
+
 export class VerifyUserRequest extends jspb.Message {
   getVerificationCode(): string;
   setVerificationCode(value: string): VerifyUserRequest;

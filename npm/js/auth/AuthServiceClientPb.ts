@@ -385,3 +385,67 @@ export class AuthServiceClient {
 
 }
 
+export class PrivateServiceClient {
+  client_: grpcWeb.AbstractClientBase;
+  hostname_: string;
+  credentials_: null | { [index: string]: string; };
+  options_: null | { [index: string]: any; };
+
+  constructor (hostname: string,
+               credentials?: null | { [index: string]: string; },
+               options?: null | { [index: string]: any; }) {
+    if (!options) options = {};
+    if (!credentials) credentials = {};
+    options['format'] = 'text';
+
+    this.client_ = new grpcWeb.GrpcWebClientBase(options);
+    this.hostname_ = hostname.replace(/\/+$/, '');
+    this.credentials_ = credentials;
+    this.options_ = options;
+  }
+
+  methodDescriptorGetUserByToken = new grpcWeb.MethodDescriptor(
+    '/auth.PrivateService/GetUserByToken',
+    grpcWeb.MethodType.UNARY,
+    auth_auth_pb.PrivateGetUserByTokenRequest,
+    auth_auth_pb.PrivateGetUserResponse,
+    (request: auth_auth_pb.PrivateGetUserByTokenRequest) => {
+      return request.serializeBinary();
+    },
+    auth_auth_pb.PrivateGetUserResponse.deserializeBinary
+  );
+
+  getUserByToken(
+    request: auth_auth_pb.PrivateGetUserByTokenRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<auth_auth_pb.PrivateGetUserResponse>;
+
+  getUserByToken(
+    request: auth_auth_pb.PrivateGetUserByTokenRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: auth_auth_pb.PrivateGetUserResponse) => void): grpcWeb.ClientReadableStream<auth_auth_pb.PrivateGetUserResponse>;
+
+  getUserByToken(
+    request: auth_auth_pb.PrivateGetUserByTokenRequest,
+    metadata?: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: auth_auth_pb.PrivateGetUserResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/auth.PrivateService/GetUserByToken',
+        request,
+        metadata || {},
+        this.methodDescriptorGetUserByToken,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/auth.PrivateService/GetUserByToken',
+    request,
+    metadata || {},
+    this.methodDescriptorGetUserByToken);
+  }
+
+}
+
