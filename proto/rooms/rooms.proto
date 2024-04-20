@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package rooms;
+
+option go_package = "rooms/";
+
+
+
+message Room  {
+  string id = 1;
+  string name = 2;
+  repeated PublicUser users = 3;
+  User created_by = 4;
+}
+
+message PublicUser {
+  string username = 1;
+  string email = 2;
+  bool verified = 3;
+}
+
+message User {
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  bool verified = 4;
+}
+
+message Token {
+  bytes token = 1;
+}
+
+
+
+service RoomService {
+  // Every method required token in metadata
+  rpc CreateRoom(CreateRoomRequest) returns (CreateRoomResponse) {}
+  rpc GetRoom(GetRoomRequest) returns (GetRoomResponse) {}
+  rpc UpdateRoom(UpdateRoomRequest) returns (UpdateRoomResponse) {}
+  rpc DeleteRoom(DeleteRoomRequest) returns (DeleteRoomResponse) {}
+  rpc AddToRoom(AddToRoomRequest) returns (AddToRoomResponse) {}
+  rpc GetRoomsByUser(GetRoomsByUserRequest) returns (GetRoomsByUserResponse) {}
+}
+
+
+message GetRoomsByUserRequest { // it will work with token in metadata
+}
+
+message GetRoomsByUserResponse {
+  bool success = 1;
+  repeated Room rooms = 2;
+}
+
+message AddToRoomRequest {
+  string room_id = 1;
+}
+
+message AddToRoomResponse {
+  bool success = 1;
+  Room room = 2;
+}
+
+
+message CreateRoomRequest {
+  string name = 1;
+}
+
+message CreateRoomResponse {
+  bool success = 1;
+  Room room = 2;
+}
+
+message GetRoomRequest {
+  string room_id = 1;
+}
+
+message GetRoomResponse {
+  bool success = 1;
+  Room room = 2;
+}
+
+message UpdateRoomRequest {
+  string room_id = 1;
+  string name = 2;
+}
+
+message UpdateRoomResponse {
+  bool success = 1;
+  Room room = 2;
+}
+
+message DeleteRoomRequest {
+  string room_id = 1;
+}
+
+message DeleteRoomResponse {
+  bool success = 1;
+  string room_id = 2;
+}
