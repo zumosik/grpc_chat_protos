@@ -10,24 +10,13 @@ message Room  {
   string id = 1;
   string name = 2;
   repeated PublicUser users = 3;
-  User created_by = 4;
+  PublicUser created_by = 4;
 }
 
 message PublicUser {
   string username = 1;
   string email = 2;
   bool verified = 3;
-}
-
-message User {
-  string id = 1;
-  string username = 2;
-  string email = 3;
-  bool verified = 4;
-}
-
-message Token {
-  bytes token = 1;
 }
 
 

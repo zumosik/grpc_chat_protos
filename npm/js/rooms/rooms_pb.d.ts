@@ -14,8 +14,8 @@ export class Room extends jspb.Message {
   clearUsersList(): Room;
   addUsers(value?: PublicUser, index?: number): PublicUser;
 
-  getCreatedBy(): User | undefined;
-  setCreatedBy(value?: User): Room;
+  getCreatedBy(): PublicUser | undefined;
+  setCreatedBy(value?: PublicUser): Room;
   hasCreatedBy(): boolean;
   clearCreatedBy(): Room;
 
@@ -32,7 +32,7 @@ export namespace Room {
     id: string,
     name: string,
     usersList: Array<PublicUser.AsObject>,
-    createdBy?: User.AsObject,
+    createdBy?: PublicUser.AsObject,
   }
 }
 
@@ -59,56 +59,6 @@ export namespace PublicUser {
     username: string,
     email: string,
     verified: boolean,
-  }
-}
-
-export class User extends jspb.Message {
-  getId(): string;
-  setId(value: string): User;
-
-  getUsername(): string;
-  setUsername(value: string): User;
-
-  getEmail(): string;
-  setEmail(value: string): User;
-
-  getVerified(): boolean;
-  setVerified(value: boolean): User;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): User.AsObject;
-  static toObject(includeInstance: boolean, msg: User): User.AsObject;
-  static serializeBinaryToWriter(message: User, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): User;
-  static deserializeBinaryFromReader(message: User, reader: jspb.BinaryReader): User;
-}
-
-export namespace User {
-  export type AsObject = {
-    id: string,
-    username: string,
-    email: string,
-    verified: boolean,
-  }
-}
-
-export class Token extends jspb.Message {
-  getToken(): Uint8Array | string;
-  getToken_asU8(): Uint8Array;
-  getToken_asB64(): string;
-  setToken(value: Uint8Array | string): Token;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Token.AsObject;
-  static toObject(includeInstance: boolean, msg: Token): Token.AsObject;
-  static serializeBinaryToWriter(message: Token, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Token;
-  static deserializeBinaryFromReader(message: Token, reader: jspb.BinaryReader): Token;
-}
-
-export namespace Token {
-  export type AsObject = {
-    token: Uint8Array | string,
   }
 }
 
