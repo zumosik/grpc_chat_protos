@@ -211,6 +211,49 @@ export class RoomServiceClient {
     this.methodDescriptorDeleteRoom);
   }
 
+  methodDescriptorGetRoomsByUser = new grpcWeb.MethodDescriptor(
+    '/rooms.RoomService/GetRoomsByUser',
+    grpcWeb.MethodType.UNARY,
+    rooms_rooms_pb.GetRoomsByUserRequest,
+    rooms_rooms_pb.GetRoomsByUserResponse,
+    (request: rooms_rooms_pb.GetRoomsByUserRequest) => {
+      return request.serializeBinary();
+    },
+    rooms_rooms_pb.GetRoomsByUserResponse.deserializeBinary
+  );
+
+  getRoomsByUser(
+    request: rooms_rooms_pb.GetRoomsByUserRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<rooms_rooms_pb.GetRoomsByUserResponse>;
+
+  getRoomsByUser(
+    request: rooms_rooms_pb.GetRoomsByUserRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: rooms_rooms_pb.GetRoomsByUserResponse) => void): grpcWeb.ClientReadableStream<rooms_rooms_pb.GetRoomsByUserResponse>;
+
+  getRoomsByUser(
+    request: rooms_rooms_pb.GetRoomsByUserRequest,
+    metadata?: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: rooms_rooms_pb.GetRoomsByUserResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/rooms.RoomService/GetRoomsByUser',
+        request,
+        metadata || {},
+        this.methodDescriptorGetRoomsByUser,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/rooms.RoomService/GetRoomsByUser',
+    request,
+    metadata || {},
+    this.methodDescriptorGetRoomsByUser);
+  }
+
   methodDescriptorAddToRoom = new grpcWeb.MethodDescriptor(
     '/rooms.RoomService/AddToRoom',
     grpcWeb.MethodType.UNARY,
@@ -254,47 +297,47 @@ export class RoomServiceClient {
     this.methodDescriptorAddToRoom);
   }
 
-  methodDescriptorGetRoomsByUser = new grpcWeb.MethodDescriptor(
-    '/rooms.RoomService/GetRoomsByUser',
+  methodDescriptorDeleteFromRoom = new grpcWeb.MethodDescriptor(
+    '/rooms.RoomService/DeleteFromRoom',
     grpcWeb.MethodType.UNARY,
-    rooms_rooms_pb.GetRoomsByUserRequest,
-    rooms_rooms_pb.GetRoomsByUserResponse,
-    (request: rooms_rooms_pb.GetRoomsByUserRequest) => {
+    rooms_rooms_pb.AddToRoomRequest,
+    rooms_rooms_pb.AddToRoomResponse,
+    (request: rooms_rooms_pb.AddToRoomRequest) => {
       return request.serializeBinary();
     },
-    rooms_rooms_pb.GetRoomsByUserResponse.deserializeBinary
+    rooms_rooms_pb.AddToRoomResponse.deserializeBinary
   );
 
-  getRoomsByUser(
-    request: rooms_rooms_pb.GetRoomsByUserRequest,
-    metadata?: grpcWeb.Metadata | null): Promise<rooms_rooms_pb.GetRoomsByUserResponse>;
+  deleteFromRoom(
+    request: rooms_rooms_pb.AddToRoomRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<rooms_rooms_pb.AddToRoomResponse>;
 
-  getRoomsByUser(
-    request: rooms_rooms_pb.GetRoomsByUserRequest,
+  deleteFromRoom(
+    request: rooms_rooms_pb.AddToRoomRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.RpcError,
-               response: rooms_rooms_pb.GetRoomsByUserResponse) => void): grpcWeb.ClientReadableStream<rooms_rooms_pb.GetRoomsByUserResponse>;
+               response: rooms_rooms_pb.AddToRoomResponse) => void): grpcWeb.ClientReadableStream<rooms_rooms_pb.AddToRoomResponse>;
 
-  getRoomsByUser(
-    request: rooms_rooms_pb.GetRoomsByUserRequest,
+  deleteFromRoom(
+    request: rooms_rooms_pb.AddToRoomRequest,
     metadata?: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.RpcError,
-               response: rooms_rooms_pb.GetRoomsByUserResponse) => void) {
+               response: rooms_rooms_pb.AddToRoomResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/rooms.RoomService/GetRoomsByUser',
+          '/rooms.RoomService/DeleteFromRoom',
         request,
         metadata || {},
-        this.methodDescriptorGetRoomsByUser,
+        this.methodDescriptorDeleteFromRoom,
         callback);
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/rooms.RoomService/GetRoomsByUser',
+      '/rooms.RoomService/DeleteFromRoom',
     request,
     metadata || {},
-    this.methodDescriptorGetRoomsByUser);
+    this.methodDescriptorDeleteFromRoom);
   }
 
 }

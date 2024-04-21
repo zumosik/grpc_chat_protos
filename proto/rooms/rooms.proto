@@ -27,8 +27,10 @@ service RoomService {
   rpc GetRoom(GetRoomRequest) returns (GetRoomResponse) {}
   rpc UpdateRoom(UpdateRoomRequest) returns (UpdateRoomResponse) {} // TODO
   rpc DeleteRoom(DeleteRoomRequest) returns (DeleteRoomResponse) {}
-  rpc AddToRoom(AddToRoomRequest) returns (AddToRoomResponse) {}
   rpc GetRoomsByUser(GetRoomsByUserRequest) returns (GetRoomsByUserResponse) {}
+
+  rpc AddToRoom(AddToRoomRequest) returns (AddToRoomResponse) {}
+  rpc DeleteFromRoom(AddToRoomRequest) returns (AddToRoomResponse) {}
 }
 
 
