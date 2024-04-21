@@ -361,6 +361,7 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PrivateServiceClient interface {
 	GetUserByToken(ctx context.Context, in *PrivateGetUserByTokenRequest, opts ...grpc.CallOption) (*PrivateGetUserResponse, error)
+	GetUserByID(ctx context.Context, in *PrivateGetUserByIDRequest, opts ...grpc.CallOption) (*PrivateGetUserResponse, error)
 }
 
 type privateServiceClient struct {
@@ -380,11 +381,21 @@ func (c *privateServiceClient) GetUserByToken(ctx context.Context, in *PrivateGe
 	return out, nil
 }
 
+func (c *privateServiceClient) GetUserByID(ctx context.Context, in *PrivateGetUserByIDRequest, opts ...grpc.CallOption) (*PrivateGetUserResponse, error) {
+	out := new(PrivateGetUserResponse)
+	err := c.cc.Invoke(ctx, "/auth.PrivateService/GetUserByID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PrivateServiceServer is the server API for PrivateService service.
 // All implementations must embed UnimplementedPrivateServiceServer
 // for forward compatibility
 type PrivateServiceServer interface {
 	GetUserByToken(context.Context, *PrivateGetUserByTokenRequest) (*PrivateGetUserResponse, error)
+	GetUserByID(context.Context, *PrivateGetUserByIDRequest) (*PrivateGetUserResponse, error)
 	mustEmbedUnimplementedPrivateServiceServer()
 }
 
@@ -394,6 +405,9 @@ type UnimplementedPrivateServiceServer struct {
 
 func (UnimplementedPrivateServiceServer) GetUserByToken(context.Context, *PrivateGetUserByTokenRequest) (*PrivateGetUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserByToken not implemented")
+}
+func (UnimplementedPrivateServiceServer) GetUserByID(context.Context, *PrivateGetUserByIDRequest) (*PrivateGetUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByID not implemented")
 }
 func (UnimplementedPrivateServiceServer) mustEmbedUnimplementedPrivateServiceServer() {}
 
@@ -426,6 +440,24 @@ func _PrivateService_GetUserByToken_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PrivateService_GetUserByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PrivateGetUserByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PrivateServiceServer).GetUserByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/auth.PrivateService/GetUserByID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PrivateServiceServer).GetUserByID(ctx, req.(*PrivateGetUserByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PrivateService_ServiceDesc is the grpc.ServiceDesc for PrivateService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -436,6 +468,10 @@ var PrivateService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserByToken",
 			Handler:    _PrivateService_GetUserByToken_Handler,
+		},
+		{
+			MethodName: "GetUserByID",
+			Handler:    _PrivateService_GetUserByID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

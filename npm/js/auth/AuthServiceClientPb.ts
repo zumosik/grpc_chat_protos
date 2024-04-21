@@ -447,5 +447,48 @@ export class PrivateServiceClient {
     this.methodDescriptorGetUserByToken);
   }
 
+  methodDescriptorGetUserByID = new grpcWeb.MethodDescriptor(
+    '/auth.PrivateService/GetUserByID',
+    grpcWeb.MethodType.UNARY,
+    auth_auth_pb.PrivateGetUserByIDRequest,
+    auth_auth_pb.PrivateGetUserResponse,
+    (request: auth_auth_pb.PrivateGetUserByIDRequest) => {
+      return request.serializeBinary();
+    },
+    auth_auth_pb.PrivateGetUserResponse.deserializeBinary
+  );
+
+  getUserByID(
+    request: auth_auth_pb.PrivateGetUserByIDRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<auth_auth_pb.PrivateGetUserResponse>;
+
+  getUserByID(
+    request: auth_auth_pb.PrivateGetUserByIDRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: auth_auth_pb.PrivateGetUserResponse) => void): grpcWeb.ClientReadableStream<auth_auth_pb.PrivateGetUserResponse>;
+
+  getUserByID(
+    request: auth_auth_pb.PrivateGetUserByIDRequest,
+    metadata?: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: auth_auth_pb.PrivateGetUserResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/auth.PrivateService/GetUserByID',
+        request,
+        metadata || {},
+        this.methodDescriptorGetUserByID,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/auth.PrivateService/GetUserByID',
+    request,
+    metadata || {},
+    this.methodDescriptorGetUserByID);
+  }
+
 }
 

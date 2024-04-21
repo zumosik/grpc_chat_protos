@@ -40,6 +40,11 @@ service AuthService {
 // Private service, called only by other services
 service PrivateService {
   rpc GetUserByToken(PrivateGetUserByTokenRequest) returns (PrivateGetUserResponse) {}
+  rpc GetUserByID(PrivateGetUserByIDRequest) returns (PrivateGetUserResponse) {}
+}
+
+message PrivateGetUserByIDRequest {
+  string id = 1;
 }
 
 message PrivateGetUserByTokenRequest {

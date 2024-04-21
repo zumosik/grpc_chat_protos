@@ -78,6 +78,24 @@ export namespace User {
   }
 }
 
+export class PrivateGetUserByIDRequest extends jspb.Message {
+  getId(): string;
+  setId(value: string): PrivateGetUserByIDRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): PrivateGetUserByIDRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: PrivateGetUserByIDRequest): PrivateGetUserByIDRequest.AsObject;
+  static serializeBinaryToWriter(message: PrivateGetUserByIDRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): PrivateGetUserByIDRequest;
+  static deserializeBinaryFromReader(message: PrivateGetUserByIDRequest, reader: jspb.BinaryReader): PrivateGetUserByIDRequest;
+}
+
+export namespace PrivateGetUserByIDRequest {
+  export type AsObject = {
+    id: string,
+  }
+}
+
 export class PrivateGetUserByTokenRequest extends jspb.Message {
   getToken(): Token | undefined;
   setToken(value?: Token): PrivateGetUserByTokenRequest;

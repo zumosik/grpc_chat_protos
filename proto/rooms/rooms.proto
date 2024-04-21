@@ -25,7 +25,7 @@ service RoomService {
   // Every method required token in metadata
   rpc CreateRoom(CreateRoomRequest) returns (CreateRoomResponse) {}
   rpc GetRoom(GetRoomRequest) returns (GetRoomResponse) {}
-  rpc UpdateRoom(UpdateRoomRequest) returns (UpdateRoomResponse) {}
+  rpc UpdateRoom(UpdateRoomRequest) returns (UpdateRoomResponse) {} // TODO
   rpc DeleteRoom(DeleteRoomRequest) returns (DeleteRoomResponse) {}
   rpc AddToRoom(AddToRoomRequest) returns (AddToRoomResponse) {}
   rpc GetRoomsByUser(GetRoomsByUserRequest) returns (GetRoomsByUserResponse) {}
