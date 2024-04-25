@@ -254,6 +254,49 @@ export class RoomServiceClient {
     this.methodDescriptorGetRoomsByUser);
   }
 
+  methodDescriptorGetRoomsByUserID = new grpcWeb.MethodDescriptor(
+    '/rooms.RoomService/GetRoomsByUserID',
+    grpcWeb.MethodType.UNARY,
+    rooms_rooms_pb.GetRoomsByUserIDRequest,
+    rooms_rooms_pb.GetRoomsByUserResponse,
+    (request: rooms_rooms_pb.GetRoomsByUserIDRequest) => {
+      return request.serializeBinary();
+    },
+    rooms_rooms_pb.GetRoomsByUserResponse.deserializeBinary
+  );
+
+  getRoomsByUserID(
+    request: rooms_rooms_pb.GetRoomsByUserIDRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<rooms_rooms_pb.GetRoomsByUserResponse>;
+
+  getRoomsByUserID(
+    request: rooms_rooms_pb.GetRoomsByUserIDRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: rooms_rooms_pb.GetRoomsByUserResponse) => void): grpcWeb.ClientReadableStream<rooms_rooms_pb.GetRoomsByUserResponse>;
+
+  getRoomsByUserID(
+    request: rooms_rooms_pb.GetRoomsByUserIDRequest,
+    metadata?: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: rooms_rooms_pb.GetRoomsByUserResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/rooms.RoomService/GetRoomsByUserID',
+        request,
+        metadata || {},
+        this.methodDescriptorGetRoomsByUserID,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/rooms.RoomService/GetRoomsByUserID',
+    request,
+    metadata || {},
+    this.methodDescriptorGetRoomsByUserID);
+  }
+
   methodDescriptorAddToRoom = new grpcWeb.MethodDescriptor(
     '/rooms.RoomService/AddToRoom',
     grpcWeb.MethodType.UNARY,

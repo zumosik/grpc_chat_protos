@@ -28,6 +28,7 @@ type RoomServiceClient interface {
 	UpdateRoom(ctx context.Context, in *UpdateRoomRequest, opts ...grpc.CallOption) (*UpdateRoomResponse, error)
 	DeleteRoom(ctx context.Context, in *DeleteRoomRequest, opts ...grpc.CallOption) (*DeleteRoomResponse, error)
 	GetRoomsByUser(ctx context.Context, in *GetRoomsByUserRequest, opts ...grpc.CallOption) (*GetRoomsByUserResponse, error)
+	GetRoomsByUserID(ctx context.Context, in *GetRoomsByUserIDRequest, opts ...grpc.CallOption) (*GetRoomsByUserResponse, error)
 	AddToRoom(ctx context.Context, in *AddToRoomRequest, opts ...grpc.CallOption) (*AddToRoomResponse, error)
 	DeleteFromRoom(ctx context.Context, in *AddToRoomRequest, opts ...grpc.CallOption) (*AddToRoomResponse, error)
 }
@@ -85,6 +86,15 @@ func (c *roomServiceClient) GetRoomsByUser(ctx context.Context, in *GetRoomsByUs
 	return out, nil
 }
 
+func (c *roomServiceClient) GetRoomsByUserID(ctx context.Context, in *GetRoomsByUserIDRequest, opts ...grpc.CallOption) (*GetRoomsByUserResponse, error) {
+	out := new(GetRoomsByUserResponse)
+	err := c.cc.Invoke(ctx, "/rooms.RoomService/GetRoomsByUserID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *roomServiceClient) AddToRoom(ctx context.Context, in *AddToRoomRequest, opts ...grpc.CallOption) (*AddToRoomResponse, error) {
 	out := new(AddToRoomResponse)
 	err := c.cc.Invoke(ctx, "/rooms.RoomService/AddToRoom", in, out, opts...)
@@ -113,6 +123,7 @@ type RoomServiceServer interface {
 	UpdateRoom(context.Context, *UpdateRoomRequest) (*UpdateRoomResponse, error)
 	DeleteRoom(context.Context, *DeleteRoomRequest) (*DeleteRoomResponse, error)
 	GetRoomsByUser(context.Context, *GetRoomsByUserRequest) (*GetRoomsByUserResponse, error)
+	GetRoomsByUserID(context.Context, *GetRoomsByUserIDRequest) (*GetRoomsByUserResponse, error)
 	AddToRoom(context.Context, *AddToRoomRequest) (*AddToRoomResponse, error)
 	DeleteFromRoom(context.Context, *AddToRoomRequest) (*AddToRoomResponse, error)
 	mustEmbedUnimplementedRoomServiceServer()
@@ -136,6 +147,9 @@ func (UnimplementedRoomServiceServer) DeleteRoom(context.Context, *DeleteRoomReq
 }
 func (UnimplementedRoomServiceServer) GetRoomsByUser(context.Context, *GetRoomsByUserRequest) (*GetRoomsByUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoomsByUser not implemented")
+}
+func (UnimplementedRoomServiceServer) GetRoomsByUserID(context.Context, *GetRoomsByUserIDRequest) (*GetRoomsByUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRoomsByUserID not implemented")
 }
 func (UnimplementedRoomServiceServer) AddToRoom(context.Context, *AddToRoomRequest) (*AddToRoomResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddToRoom not implemented")
@@ -246,6 +260,24 @@ func _RoomService_GetRoomsByUser_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RoomService_GetRoomsByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRoomsByUserIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RoomServiceServer).GetRoomsByUserID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/rooms.RoomService/GetRoomsByUserID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RoomServiceServer).GetRoomsByUserID(ctx, req.(*GetRoomsByUserIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _RoomService_AddToRoom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AddToRoomRequest)
 	if err := dec(in); err != nil {
@@ -308,6 +340,10 @@ var RoomService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetRoomsByUser",
 			Handler:    _RoomService_GetRoomsByUser_Handler,
+		},
+		{
+			MethodName: "GetRoomsByUserID",
+			Handler:    _RoomService_GetRoomsByUserID_Handler,
 		},
 		{
 			MethodName: "AddToRoom",

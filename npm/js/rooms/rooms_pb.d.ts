@@ -62,6 +62,24 @@ export namespace PublicUser {
   }
 }
 
+export class GetRoomsByUserIDRequest extends jspb.Message {
+  getUserId(): string;
+  setUserId(value: string): GetRoomsByUserIDRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetRoomsByUserIDRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetRoomsByUserIDRequest): GetRoomsByUserIDRequest.AsObject;
+  static serializeBinaryToWriter(message: GetRoomsByUserIDRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetRoomsByUserIDRequest;
+  static deserializeBinaryFromReader(message: GetRoomsByUserIDRequest, reader: jspb.BinaryReader): GetRoomsByUserIDRequest;
+}
+
+export namespace GetRoomsByUserIDRequest {
+  export type AsObject = {
+    userId: string,
+  }
+}
+
 export class GetRoomsByUserRequest extends jspb.Message {
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetRoomsByUserRequest.AsObject;
