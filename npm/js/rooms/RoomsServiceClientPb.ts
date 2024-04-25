@@ -254,49 +254,6 @@ export class RoomServiceClient {
     this.methodDescriptorGetRoomsByUser);
   }
 
-  methodDescriptorGetRoomsByUserID = new grpcWeb.MethodDescriptor(
-    '/rooms.RoomService/GetRoomsByUserID',
-    grpcWeb.MethodType.UNARY,
-    rooms_rooms_pb.GetRoomsByUserIDRequest,
-    rooms_rooms_pb.GetRoomsByUserResponse,
-    (request: rooms_rooms_pb.GetRoomsByUserIDRequest) => {
-      return request.serializeBinary();
-    },
-    rooms_rooms_pb.GetRoomsByUserResponse.deserializeBinary
-  );
-
-  getRoomsByUserID(
-    request: rooms_rooms_pb.GetRoomsByUserIDRequest,
-    metadata?: grpcWeb.Metadata | null): Promise<rooms_rooms_pb.GetRoomsByUserResponse>;
-
-  getRoomsByUserID(
-    request: rooms_rooms_pb.GetRoomsByUserIDRequest,
-    metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: rooms_rooms_pb.GetRoomsByUserResponse) => void): grpcWeb.ClientReadableStream<rooms_rooms_pb.GetRoomsByUserResponse>;
-
-  getRoomsByUserID(
-    request: rooms_rooms_pb.GetRoomsByUserIDRequest,
-    metadata?: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: rooms_rooms_pb.GetRoomsByUserResponse) => void) {
-    if (callback !== undefined) {
-      return this.client_.rpcCall(
-        this.hostname_ +
-          '/rooms.RoomService/GetRoomsByUserID',
-        request,
-        metadata || {},
-        this.methodDescriptorGetRoomsByUserID,
-        callback);
-    }
-    return this.client_.unaryCall(
-    this.hostname_ +
-      '/rooms.RoomService/GetRoomsByUserID',
-    request,
-    metadata || {},
-    this.methodDescriptorGetRoomsByUserID);
-  }
-
   methodDescriptorAddToRoom = new grpcWeb.MethodDescriptor(
     '/rooms.RoomService/AddToRoom',
     grpcWeb.MethodType.UNARY,
@@ -381,6 +338,70 @@ export class RoomServiceClient {
     request,
     metadata || {},
     this.methodDescriptorDeleteFromRoom);
+  }
+
+}
+
+export class PrivateRoomsServiceClient {
+  client_: grpcWeb.AbstractClientBase;
+  hostname_: string;
+  credentials_: null | { [index: string]: string; };
+  options_: null | { [index: string]: any; };
+
+  constructor (hostname: string,
+               credentials?: null | { [index: string]: string; },
+               options?: null | { [index: string]: any; }) {
+    if (!options) options = {};
+    if (!credentials) credentials = {};
+    options['format'] = 'text';
+
+    this.client_ = new grpcWeb.GrpcWebClientBase(options);
+    this.hostname_ = hostname.replace(/\/+$/, '');
+    this.credentials_ = credentials;
+    this.options_ = options;
+  }
+
+  methodDescriptorGetRoomsByUserID = new grpcWeb.MethodDescriptor(
+    '/rooms.PrivateRoomsService/GetRoomsByUserID',
+    grpcWeb.MethodType.UNARY,
+    rooms_rooms_pb.PrivateGetRoomsByUserIDRequest,
+    rooms_rooms_pb.PrivateGetRoomsByUserResponse,
+    (request: rooms_rooms_pb.PrivateGetRoomsByUserIDRequest) => {
+      return request.serializeBinary();
+    },
+    rooms_rooms_pb.PrivateGetRoomsByUserResponse.deserializeBinary
+  );
+
+  getRoomsByUserID(
+    request: rooms_rooms_pb.PrivateGetRoomsByUserIDRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<rooms_rooms_pb.PrivateGetRoomsByUserResponse>;
+
+  getRoomsByUserID(
+    request: rooms_rooms_pb.PrivateGetRoomsByUserIDRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: rooms_rooms_pb.PrivateGetRoomsByUserResponse) => void): grpcWeb.ClientReadableStream<rooms_rooms_pb.PrivateGetRoomsByUserResponse>;
+
+  getRoomsByUserID(
+    request: rooms_rooms_pb.PrivateGetRoomsByUserIDRequest,
+    metadata?: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: rooms_rooms_pb.PrivateGetRoomsByUserResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/rooms.PrivateRoomsService/GetRoomsByUserID',
+        request,
+        metadata || {},
+        this.methodDescriptorGetRoomsByUserID,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/rooms.PrivateRoomsService/GetRoomsByUserID',
+    request,
+    metadata || {},
+    this.methodDescriptorGetRoomsByUserID);
   }
 
 }

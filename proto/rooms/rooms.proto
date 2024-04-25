@@ -13,10 +13,24 @@ message Room  {
   PublicUser created_by = 4;
 }
 
+message PrivateRoom {
+  string id = 1;
+  string name = 2;
+  repeated User users = 3;
+  User created_by = 4;
+}
+
 message PublicUser {
   string username = 1;
   string email = 2;
   bool verified = 3;
+}
+
+message User {
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  bool verified = 4;
 }
 
 
@@ -29,14 +43,22 @@ service RoomService {
   rpc DeleteRoom(DeleteRoomRequest) returns (DeleteRoomResponse) {}
   
   rpc GetRoomsByUser(GetRoomsByUserRequest) returns (GetRoomsByUserResponse) {}
-  rpc GetRoomsByUserID(GetRoomsByUserIDRequest) returns (GetRoomsByUserResponse) {}
 
   rpc AddToRoom(AddToRoomRequest) returns (AddToRoomResponse) {}
   rpc DeleteFromRoom(AddToRoomRequest) returns (AddToRoomResponse) {}
 }
 
-message GetRoomsByUserIDRequest {
+service PrivateRoomsService {
+  rpc GetRoomsByUserID(PrivateGetRoomsByUserIDRequest) returns (PrivateGetRoomsByUserResponse) {}
+}
+
+message PrivateGetRoomsByUserIDRequest {
   string user_id = 1;
+}
+
+message PrivateGetRoomsByUserResponse {
+  bool success = 1;
+  repeated PrivateRoom rooms = 2;
 }
 
 
