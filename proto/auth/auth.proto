@@ -18,7 +18,8 @@ message User {
 
 
 service AuthService {
-  rpc Login(LoginRequest) returns (LoginResponse) {}
+  rpc LoginByEmail(LoginRequestByEmail) returns (LoginResponse) {}
+  rpc LoginByUsername(LoginRequestByUsername) returns (LoginResponse) {}
 
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 
@@ -32,6 +33,16 @@ service AuthService {
   rpc GetUserByID(GetUserByIDRequest) returns (GetUserResponse) {}
 
   rpc VerifyUser(VerifyUserRequest) returns (VerifyUserResponse) {}
+}
+
+message LoginRequestByEmail {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginRequestByUsername {
+  string username = 1;
+  string password = 2;
 }
 
 
@@ -68,11 +79,7 @@ message GetUserByEmailRequest {
 }
 
 
-message LoginRequest {
-  string username = 1;
-  string password = 2;
-  string email = 3;
-}
+
 
 message LoginResponse {
   bool success = 1;

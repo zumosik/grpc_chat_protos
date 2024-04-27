@@ -52,6 +52,50 @@ export namespace User {
   }
 }
 
+export class LoginRequestByEmail extends jspb.Message {
+  getEmail(): string;
+  setEmail(value: string): LoginRequestByEmail;
+
+  getPassword(): string;
+  setPassword(value: string): LoginRequestByEmail;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): LoginRequestByEmail.AsObject;
+  static toObject(includeInstance: boolean, msg: LoginRequestByEmail): LoginRequestByEmail.AsObject;
+  static serializeBinaryToWriter(message: LoginRequestByEmail, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): LoginRequestByEmail;
+  static deserializeBinaryFromReader(message: LoginRequestByEmail, reader: jspb.BinaryReader): LoginRequestByEmail;
+}
+
+export namespace LoginRequestByEmail {
+  export type AsObject = {
+    email: string,
+    password: string,
+  }
+}
+
+export class LoginRequestByUsername extends jspb.Message {
+  getUsername(): string;
+  setUsername(value: string): LoginRequestByUsername;
+
+  getPassword(): string;
+  setPassword(value: string): LoginRequestByUsername;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): LoginRequestByUsername.AsObject;
+  static toObject(includeInstance: boolean, msg: LoginRequestByUsername): LoginRequestByUsername.AsObject;
+  static serializeBinaryToWriter(message: LoginRequestByUsername, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): LoginRequestByUsername;
+  static deserializeBinaryFromReader(message: LoginRequestByUsername, reader: jspb.BinaryReader): LoginRequestByUsername;
+}
+
+export namespace LoginRequestByUsername {
+  export type AsObject = {
+    username: string,
+    password: string,
+  }
+}
+
 export class GetUserByIDRequest extends jspb.Message {
   getId(): string;
   setId(value: string): GetUserByIDRequest;
@@ -188,32 +232,6 @@ export class GetUserByEmailRequest extends jspb.Message {
 
 export namespace GetUserByEmailRequest {
   export type AsObject = {
-    email: string,
-  }
-}
-
-export class LoginRequest extends jspb.Message {
-  getUsername(): string;
-  setUsername(value: string): LoginRequest;
-
-  getPassword(): string;
-  setPassword(value: string): LoginRequest;
-
-  getEmail(): string;
-  setEmail(value: string): LoginRequest;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): LoginRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: LoginRequest): LoginRequest.AsObject;
-  static serializeBinaryToWriter(message: LoginRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): LoginRequest;
-  static deserializeBinaryFromReader(message: LoginRequest, reader: jspb.BinaryReader): LoginRequest;
-}
-
-export namespace LoginRequest {
-  export type AsObject = {
-    username: string,
-    password: string,
     email: string,
   }
 }

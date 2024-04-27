@@ -39,47 +39,90 @@ export class AuthServiceClient {
     this.options_ = options;
   }
 
-  methodDescriptorLogin = new grpcWeb.MethodDescriptor(
-    '/auth.AuthService/Login',
+  methodDescriptorLoginByEmail = new grpcWeb.MethodDescriptor(
+    '/auth.AuthService/LoginByEmail',
     grpcWeb.MethodType.UNARY,
-    auth_auth_pb.LoginRequest,
+    auth_auth_pb.LoginRequestByEmail,
     auth_auth_pb.LoginResponse,
-    (request: auth_auth_pb.LoginRequest) => {
+    (request: auth_auth_pb.LoginRequestByEmail) => {
       return request.serializeBinary();
     },
     auth_auth_pb.LoginResponse.deserializeBinary
   );
 
-  login(
-    request: auth_auth_pb.LoginRequest,
+  loginByEmail(
+    request: auth_auth_pb.LoginRequestByEmail,
     metadata?: grpcWeb.Metadata | null): Promise<auth_auth_pb.LoginResponse>;
 
-  login(
-    request: auth_auth_pb.LoginRequest,
+  loginByEmail(
+    request: auth_auth_pb.LoginRequestByEmail,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.RpcError,
                response: auth_auth_pb.LoginResponse) => void): grpcWeb.ClientReadableStream<auth_auth_pb.LoginResponse>;
 
-  login(
-    request: auth_auth_pb.LoginRequest,
+  loginByEmail(
+    request: auth_auth_pb.LoginRequestByEmail,
     metadata?: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.RpcError,
                response: auth_auth_pb.LoginResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/auth.AuthService/Login',
+          '/auth.AuthService/LoginByEmail',
         request,
         metadata || {},
-        this.methodDescriptorLogin,
+        this.methodDescriptorLoginByEmail,
         callback);
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/auth.AuthService/Login',
+      '/auth.AuthService/LoginByEmail',
     request,
     metadata || {},
-    this.methodDescriptorLogin);
+    this.methodDescriptorLoginByEmail);
+  }
+
+  methodDescriptorLoginByUsername = new grpcWeb.MethodDescriptor(
+    '/auth.AuthService/LoginByUsername',
+    grpcWeb.MethodType.UNARY,
+    auth_auth_pb.LoginRequestByUsername,
+    auth_auth_pb.LoginResponse,
+    (request: auth_auth_pb.LoginRequestByUsername) => {
+      return request.serializeBinary();
+    },
+    auth_auth_pb.LoginResponse.deserializeBinary
+  );
+
+  loginByUsername(
+    request: auth_auth_pb.LoginRequestByUsername,
+    metadata?: grpcWeb.Metadata | null): Promise<auth_auth_pb.LoginResponse>;
+
+  loginByUsername(
+    request: auth_auth_pb.LoginRequestByUsername,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: auth_auth_pb.LoginResponse) => void): grpcWeb.ClientReadableStream<auth_auth_pb.LoginResponse>;
+
+  loginByUsername(
+    request: auth_auth_pb.LoginRequestByUsername,
+    metadata?: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: auth_auth_pb.LoginResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/auth.AuthService/LoginByUsername',
+        request,
+        metadata || {},
+        this.methodDescriptorLoginByUsername,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/auth.AuthService/LoginByUsername',
+    request,
+    metadata || {},
+    this.methodDescriptorLoginByUsername);
   }
 
   methodDescriptorCreateUser = new grpcWeb.MethodDescriptor(
