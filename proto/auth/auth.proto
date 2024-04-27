@@ -8,11 +8,6 @@ message Token {
   bytes token = 1;
 }
 
-message PublicUser {
-  string username = 1;
-  string email = 2;
-  bool verified = 3;
-}
 
 message User {
   string id = 1;
@@ -30,28 +25,25 @@ service AuthService {
   rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
   rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {}
 
-  rpc GetUserByToken(GetUserByTokenRequest) returns (GetUserResponse) {}
   rpc GetUserByEmail(GetUserByEmailRequest) returns (GetUserResponse) {}
   rpc GetUserByUsername(GetUserByUsernameRequest) returns (GetUserResponse) {}
+
+  rpc GetUserByToken(GetUserByTokenRequest) returns (GetUserResponse) {}
+  rpc GetUserByID(GetUserByIDRequest) returns (GetUserResponse) {}
 
   rpc VerifyUser(VerifyUserRequest) returns (VerifyUserResponse) {}
 }
 
-// Private service, called only by other services
-service PrivateService {
-  rpc GetUserByToken(PrivateGetUserByTokenRequest) returns (PrivateGetUserResponse) {}
-  rpc GetUserByID(PrivateGetUserByIDRequest) returns (PrivateGetUserResponse) {}
-}
 
-message PrivateGetUserByIDRequest {
+message GetUserByIDRequest {
   string id = 1;
 }
 
-message PrivateGetUserByTokenRequest {
+message GetUserByTokenRequest {
   Token token = 1;
 }
 
-message PrivateGetUserResponse {
+message GetUserResponse {
   bool success = 1;
   User user = 2;
 }
@@ -62,13 +54,10 @@ message VerifyUserRequest {
 
 message VerifyUserResponse {
   bool success = 1;
-  PublicUser public_user = 2;
+  User user = 2;
 }
 
-message GetUserResponse {
-  bool success = 1;
-  PublicUser public_user = 2;
-}
+
 
 message GetUserByUsernameRequest {
   string username = 1;
@@ -98,13 +87,10 @@ message CreateUserRequest {
 
 message CreateUserResponse {
   bool success = 1;
-  PublicUser user = 2;
+  User user = 2;
   string verification_code = 3;
 }
 
-message GetUserByTokenRequest {
-  Token token = 1;
-}
 
 message UpdateUserRequest {
   Token token = 1;
@@ -115,7 +101,7 @@ message UpdateUserRequest {
 
 message UpdateUserResponse {
   bool success = 1;
-  PublicUser new_user = 2;
+  User new_user = 2;
 }
 
 message DeleteUserRequest {

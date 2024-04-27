@@ -9,13 +9,13 @@ export class Room extends jspb.Message {
   getName(): string;
   setName(value: string): Room;
 
-  getUsersList(): Array<PublicUser>;
-  setUsersList(value: Array<PublicUser>): Room;
+  getUsersList(): Array<User>;
+  setUsersList(value: Array<User>): Room;
   clearUsersList(): Room;
-  addUsers(value?: PublicUser, index?: number): PublicUser;
+  addUsers(value?: User, index?: number): User;
 
-  getCreatedBy(): PublicUser | undefined;
-  setCreatedBy(value?: PublicUser): Room;
+  getCreatedBy(): User | undefined;
+  setCreatedBy(value?: User): Room;
   hasCreatedBy(): boolean;
   clearCreatedBy(): Room;
 
@@ -31,68 +31,8 @@ export namespace Room {
   export type AsObject = {
     id: string,
     name: string,
-    usersList: Array<PublicUser.AsObject>,
-    createdBy?: PublicUser.AsObject,
-  }
-}
-
-export class PrivateRoom extends jspb.Message {
-  getId(): string;
-  setId(value: string): PrivateRoom;
-
-  getName(): string;
-  setName(value: string): PrivateRoom;
-
-  getUsersList(): Array<User>;
-  setUsersList(value: Array<User>): PrivateRoom;
-  clearUsersList(): PrivateRoom;
-  addUsers(value?: User, index?: number): User;
-
-  getCreatedBy(): User | undefined;
-  setCreatedBy(value?: User): PrivateRoom;
-  hasCreatedBy(): boolean;
-  clearCreatedBy(): PrivateRoom;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): PrivateRoom.AsObject;
-  static toObject(includeInstance: boolean, msg: PrivateRoom): PrivateRoom.AsObject;
-  static serializeBinaryToWriter(message: PrivateRoom, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): PrivateRoom;
-  static deserializeBinaryFromReader(message: PrivateRoom, reader: jspb.BinaryReader): PrivateRoom;
-}
-
-export namespace PrivateRoom {
-  export type AsObject = {
-    id: string,
-    name: string,
     usersList: Array<User.AsObject>,
     createdBy?: User.AsObject,
-  }
-}
-
-export class PublicUser extends jspb.Message {
-  getUsername(): string;
-  setUsername(value: string): PublicUser;
-
-  getEmail(): string;
-  setEmail(value: string): PublicUser;
-
-  getVerified(): boolean;
-  setVerified(value: boolean): PublicUser;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): PublicUser.AsObject;
-  static toObject(includeInstance: boolean, msg: PublicUser): PublicUser.AsObject;
-  static serializeBinaryToWriter(message: PublicUser, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): PublicUser;
-  static deserializeBinaryFromReader(message: PublicUser, reader: jspb.BinaryReader): PublicUser;
-}
-
-export namespace PublicUser {
-  export type AsObject = {
-    username: string,
-    email: string,
-    verified: boolean,
   }
 }
 
@@ -126,59 +66,21 @@ export namespace User {
   }
 }
 
-export class PrivateGetRoomsByUserIDRequest extends jspb.Message {
+export class GetRoomsByUserIDRequest extends jspb.Message {
   getUserId(): string;
-  setUserId(value: string): PrivateGetRoomsByUserIDRequest;
+  setUserId(value: string): GetRoomsByUserIDRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): PrivateGetRoomsByUserIDRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: PrivateGetRoomsByUserIDRequest): PrivateGetRoomsByUserIDRequest.AsObject;
-  static serializeBinaryToWriter(message: PrivateGetRoomsByUserIDRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): PrivateGetRoomsByUserIDRequest;
-  static deserializeBinaryFromReader(message: PrivateGetRoomsByUserIDRequest, reader: jspb.BinaryReader): PrivateGetRoomsByUserIDRequest;
+  toObject(includeInstance?: boolean): GetRoomsByUserIDRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetRoomsByUserIDRequest): GetRoomsByUserIDRequest.AsObject;
+  static serializeBinaryToWriter(message: GetRoomsByUserIDRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetRoomsByUserIDRequest;
+  static deserializeBinaryFromReader(message: GetRoomsByUserIDRequest, reader: jspb.BinaryReader): GetRoomsByUserIDRequest;
 }
 
-export namespace PrivateGetRoomsByUserIDRequest {
+export namespace GetRoomsByUserIDRequest {
   export type AsObject = {
     userId: string,
-  }
-}
-
-export class PrivateGetRoomsByUserResponse extends jspb.Message {
-  getSuccess(): boolean;
-  setSuccess(value: boolean): PrivateGetRoomsByUserResponse;
-
-  getRoomsList(): Array<PrivateRoom>;
-  setRoomsList(value: Array<PrivateRoom>): PrivateGetRoomsByUserResponse;
-  clearRoomsList(): PrivateGetRoomsByUserResponse;
-  addRooms(value?: PrivateRoom, index?: number): PrivateRoom;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): PrivateGetRoomsByUserResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: PrivateGetRoomsByUserResponse): PrivateGetRoomsByUserResponse.AsObject;
-  static serializeBinaryToWriter(message: PrivateGetRoomsByUserResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): PrivateGetRoomsByUserResponse;
-  static deserializeBinaryFromReader(message: PrivateGetRoomsByUserResponse, reader: jspb.BinaryReader): PrivateGetRoomsByUserResponse;
-}
-
-export namespace PrivateGetRoomsByUserResponse {
-  export type AsObject = {
-    success: boolean,
-    roomsList: Array<PrivateRoom.AsObject>,
-  }
-}
-
-export class GetRoomsByUserRequest extends jspb.Message {
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetRoomsByUserRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: GetRoomsByUserRequest): GetRoomsByUserRequest.AsObject;
-  static serializeBinaryToWriter(message: GetRoomsByUserRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetRoomsByUserRequest;
-  static deserializeBinaryFromReader(message: GetRoomsByUserRequest, reader: jspb.BinaryReader): GetRoomsByUserRequest;
-}
-
-export namespace GetRoomsByUserRequest {
-  export type AsObject = {
   }
 }
 
@@ -203,6 +105,20 @@ export namespace GetRoomsByUserResponse {
   export type AsObject = {
     success: boolean,
     roomsList: Array<Room.AsObject>,
+  }
+}
+
+export class GetRoomsByUserRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetRoomsByUserRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetRoomsByUserRequest): GetRoomsByUserRequest.AsObject;
+  static serializeBinaryToWriter(message: GetRoomsByUserRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetRoomsByUserRequest;
+  static deserializeBinaryFromReader(message: GetRoomsByUserRequest, reader: jspb.BinaryReader): GetRoomsByUserRequest;
+}
+
+export namespace GetRoomsByUserRequest {
+  export type AsObject = {
   }
 }
 

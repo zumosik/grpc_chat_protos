@@ -6,25 +6,13 @@ option go_package = "rooms/";
 
 
 
-message Room  {
-  string id = 1;
-  string name = 2;
-  repeated PublicUser users = 3;
-  PublicUser created_by = 4;
-}
-
-message PrivateRoom {
+message Room {
   string id = 1;
   string name = 2;
   repeated User users = 3;
   User created_by = 4;
 }
 
-message PublicUser {
-  string username = 1;
-  string email = 2;
-  bool verified = 3;
-}
 
 message User {
   string id = 1;
@@ -46,29 +34,24 @@ service RoomService {
 
   rpc AddToRoom(AddToRoomRequest) returns (AddToRoomResponse) {}
   rpc DeleteFromRoom(AddToRoomRequest) returns (AddToRoomResponse) {}
+
+  rpc GetRoomsByUserID(GetRoomsByUserIDRequest) returns (GetRoomsByUserResponse) {}
 }
 
-service PrivateRoomsService {
-  rpc GetRoomsByUserID(PrivateGetRoomsByUserIDRequest) returns (PrivateGetRoomsByUserResponse) {}
-}
 
-message PrivateGetRoomsByUserIDRequest {
+message GetRoomsByUserIDRequest {
   string user_id = 1;
-}
-
-message PrivateGetRoomsByUserResponse {
-  bool success = 1;
-  repeated PrivateRoom rooms = 2;
-}
-
-
-message GetRoomsByUserRequest { // it will work with token in metadata
 }
 
 message GetRoomsByUserResponse {
   bool success = 1;
   repeated Room rooms = 2;
 }
+
+
+message GetRoomsByUserRequest { // it will work with token in metadata
+}
+
 
 message AddToRoomRequest {
   string room_id = 1;

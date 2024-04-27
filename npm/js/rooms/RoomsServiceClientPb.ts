@@ -340,57 +340,36 @@ export class RoomServiceClient {
     this.methodDescriptorDeleteFromRoom);
   }
 
-}
-
-export class PrivateRoomsServiceClient {
-  client_: grpcWeb.AbstractClientBase;
-  hostname_: string;
-  credentials_: null | { [index: string]: string; };
-  options_: null | { [index: string]: any; };
-
-  constructor (hostname: string,
-               credentials?: null | { [index: string]: string; },
-               options?: null | { [index: string]: any; }) {
-    if (!options) options = {};
-    if (!credentials) credentials = {};
-    options['format'] = 'text';
-
-    this.client_ = new grpcWeb.GrpcWebClientBase(options);
-    this.hostname_ = hostname.replace(/\/+$/, '');
-    this.credentials_ = credentials;
-    this.options_ = options;
-  }
-
   methodDescriptorGetRoomsByUserID = new grpcWeb.MethodDescriptor(
-    '/rooms.PrivateRoomsService/GetRoomsByUserID',
+    '/rooms.RoomService/GetRoomsByUserID',
     grpcWeb.MethodType.UNARY,
-    rooms_rooms_pb.PrivateGetRoomsByUserIDRequest,
-    rooms_rooms_pb.PrivateGetRoomsByUserResponse,
-    (request: rooms_rooms_pb.PrivateGetRoomsByUserIDRequest) => {
+    rooms_rooms_pb.GetRoomsByUserIDRequest,
+    rooms_rooms_pb.GetRoomsByUserResponse,
+    (request: rooms_rooms_pb.GetRoomsByUserIDRequest) => {
       return request.serializeBinary();
     },
-    rooms_rooms_pb.PrivateGetRoomsByUserResponse.deserializeBinary
+    rooms_rooms_pb.GetRoomsByUserResponse.deserializeBinary
   );
 
   getRoomsByUserID(
-    request: rooms_rooms_pb.PrivateGetRoomsByUserIDRequest,
-    metadata?: grpcWeb.Metadata | null): Promise<rooms_rooms_pb.PrivateGetRoomsByUserResponse>;
+    request: rooms_rooms_pb.GetRoomsByUserIDRequest,
+    metadata?: grpcWeb.Metadata | null): Promise<rooms_rooms_pb.GetRoomsByUserResponse>;
 
   getRoomsByUserID(
-    request: rooms_rooms_pb.PrivateGetRoomsByUserIDRequest,
+    request: rooms_rooms_pb.GetRoomsByUserIDRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.RpcError,
-               response: rooms_rooms_pb.PrivateGetRoomsByUserResponse) => void): grpcWeb.ClientReadableStream<rooms_rooms_pb.PrivateGetRoomsByUserResponse>;
+               response: rooms_rooms_pb.GetRoomsByUserResponse) => void): grpcWeb.ClientReadableStream<rooms_rooms_pb.GetRoomsByUserResponse>;
 
   getRoomsByUserID(
-    request: rooms_rooms_pb.PrivateGetRoomsByUserIDRequest,
+    request: rooms_rooms_pb.GetRoomsByUserIDRequest,
     metadata?: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.RpcError,
-               response: rooms_rooms_pb.PrivateGetRoomsByUserResponse) => void) {
+               response: rooms_rooms_pb.GetRoomsByUserResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/rooms.PrivateRoomsService/GetRoomsByUserID',
+          '/rooms.RoomService/GetRoomsByUserID',
         request,
         metadata || {},
         this.methodDescriptorGetRoomsByUserID,
@@ -398,7 +377,7 @@ export class PrivateRoomsServiceClient {
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/rooms.PrivateRoomsService/GetRoomsByUserID',
+      '/rooms.RoomService/GetRoomsByUserID',
     request,
     metadata || {},
     this.methodDescriptorGetRoomsByUserID);

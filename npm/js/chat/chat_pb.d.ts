@@ -3,26 +3,6 @@ import * as jspb from 'google-protobuf'
 import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb'; // proto import: "google/protobuf/timestamp.proto"
 
 
-export class Token extends jspb.Message {
-  getToken(): Uint8Array | string;
-  getToken_asU8(): Uint8Array;
-  getToken_asB64(): string;
-  setToken(value: Uint8Array | string): Token;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Token.AsObject;
-  static toObject(includeInstance: boolean, msg: Token): Token.AsObject;
-  static serializeBinaryToWriter(message: Token, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Token;
-  static deserializeBinaryFromReader(message: Token, reader: jspb.BinaryReader): Token;
-}
-
-export namespace Token {
-  export type AsObject = {
-    token: Uint8Array | string,
-  }
-}
-
 export class Message extends jspb.Message {
   getChatid(): string;
   setChatid(value: string): Message;
@@ -67,11 +47,6 @@ export namespace Message {
 }
 
 export class StreamRequest extends jspb.Message {
-  getToken(): Token | undefined;
-  setToken(value?: Token): StreamRequest;
-  hasToken(): boolean;
-  clearToken(): StreamRequest;
-
   getMsg(): Message | undefined;
   setMsg(value?: Message): StreamRequest;
   hasMsg(): boolean;
@@ -87,7 +62,6 @@ export class StreamRequest extends jspb.Message {
 
 export namespace StreamRequest {
   export type AsObject = {
-    token?: Token.AsObject,
     msg?: Message.AsObject,
   }
 }

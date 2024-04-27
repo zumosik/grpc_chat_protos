@@ -22,32 +22,6 @@ export namespace Token {
   }
 }
 
-export class PublicUser extends jspb.Message {
-  getUsername(): string;
-  setUsername(value: string): PublicUser;
-
-  getEmail(): string;
-  setEmail(value: string): PublicUser;
-
-  getVerified(): boolean;
-  setVerified(value: boolean): PublicUser;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): PublicUser.AsObject;
-  static toObject(includeInstance: boolean, msg: PublicUser): PublicUser.AsObject;
-  static serializeBinaryToWriter(message: PublicUser, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): PublicUser;
-  static deserializeBinaryFromReader(message: PublicUser, reader: jspb.BinaryReader): PublicUser;
-}
-
-export namespace PublicUser {
-  export type AsObject = {
-    username: string,
-    email: string,
-    verified: boolean,
-  }
-}
-
 export class User extends jspb.Message {
   getId(): string;
   setId(value: string): User;
@@ -78,62 +52,62 @@ export namespace User {
   }
 }
 
-export class PrivateGetUserByIDRequest extends jspb.Message {
+export class GetUserByIDRequest extends jspb.Message {
   getId(): string;
-  setId(value: string): PrivateGetUserByIDRequest;
+  setId(value: string): GetUserByIDRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): PrivateGetUserByIDRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: PrivateGetUserByIDRequest): PrivateGetUserByIDRequest.AsObject;
-  static serializeBinaryToWriter(message: PrivateGetUserByIDRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): PrivateGetUserByIDRequest;
-  static deserializeBinaryFromReader(message: PrivateGetUserByIDRequest, reader: jspb.BinaryReader): PrivateGetUserByIDRequest;
+  toObject(includeInstance?: boolean): GetUserByIDRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetUserByIDRequest): GetUserByIDRequest.AsObject;
+  static serializeBinaryToWriter(message: GetUserByIDRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetUserByIDRequest;
+  static deserializeBinaryFromReader(message: GetUserByIDRequest, reader: jspb.BinaryReader): GetUserByIDRequest;
 }
 
-export namespace PrivateGetUserByIDRequest {
+export namespace GetUserByIDRequest {
   export type AsObject = {
     id: string,
   }
 }
 
-export class PrivateGetUserByTokenRequest extends jspb.Message {
+export class GetUserByTokenRequest extends jspb.Message {
   getToken(): Token | undefined;
-  setToken(value?: Token): PrivateGetUserByTokenRequest;
+  setToken(value?: Token): GetUserByTokenRequest;
   hasToken(): boolean;
-  clearToken(): PrivateGetUserByTokenRequest;
+  clearToken(): GetUserByTokenRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): PrivateGetUserByTokenRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: PrivateGetUserByTokenRequest): PrivateGetUserByTokenRequest.AsObject;
-  static serializeBinaryToWriter(message: PrivateGetUserByTokenRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): PrivateGetUserByTokenRequest;
-  static deserializeBinaryFromReader(message: PrivateGetUserByTokenRequest, reader: jspb.BinaryReader): PrivateGetUserByTokenRequest;
+  toObject(includeInstance?: boolean): GetUserByTokenRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetUserByTokenRequest): GetUserByTokenRequest.AsObject;
+  static serializeBinaryToWriter(message: GetUserByTokenRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetUserByTokenRequest;
+  static deserializeBinaryFromReader(message: GetUserByTokenRequest, reader: jspb.BinaryReader): GetUserByTokenRequest;
 }
 
-export namespace PrivateGetUserByTokenRequest {
+export namespace GetUserByTokenRequest {
   export type AsObject = {
     token?: Token.AsObject,
   }
 }
 
-export class PrivateGetUserResponse extends jspb.Message {
+export class GetUserResponse extends jspb.Message {
   getSuccess(): boolean;
-  setSuccess(value: boolean): PrivateGetUserResponse;
+  setSuccess(value: boolean): GetUserResponse;
 
   getUser(): User | undefined;
-  setUser(value?: User): PrivateGetUserResponse;
+  setUser(value?: User): GetUserResponse;
   hasUser(): boolean;
-  clearUser(): PrivateGetUserResponse;
+  clearUser(): GetUserResponse;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): PrivateGetUserResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: PrivateGetUserResponse): PrivateGetUserResponse.AsObject;
-  static serializeBinaryToWriter(message: PrivateGetUserResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): PrivateGetUserResponse;
-  static deserializeBinaryFromReader(message: PrivateGetUserResponse, reader: jspb.BinaryReader): PrivateGetUserResponse;
+  toObject(includeInstance?: boolean): GetUserResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetUserResponse): GetUserResponse.AsObject;
+  static serializeBinaryToWriter(message: GetUserResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetUserResponse;
+  static deserializeBinaryFromReader(message: GetUserResponse, reader: jspb.BinaryReader): GetUserResponse;
 }
 
-export namespace PrivateGetUserResponse {
+export namespace GetUserResponse {
   export type AsObject = {
     success: boolean,
     user?: User.AsObject,
@@ -162,10 +136,10 @@ export class VerifyUserResponse extends jspb.Message {
   getSuccess(): boolean;
   setSuccess(value: boolean): VerifyUserResponse;
 
-  getPublicUser(): PublicUser | undefined;
-  setPublicUser(value?: PublicUser): VerifyUserResponse;
-  hasPublicUser(): boolean;
-  clearPublicUser(): VerifyUserResponse;
+  getUser(): User | undefined;
+  setUser(value?: User): VerifyUserResponse;
+  hasUser(): boolean;
+  clearUser(): VerifyUserResponse;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): VerifyUserResponse.AsObject;
@@ -178,31 +152,7 @@ export class VerifyUserResponse extends jspb.Message {
 export namespace VerifyUserResponse {
   export type AsObject = {
     success: boolean,
-    publicUser?: PublicUser.AsObject,
-  }
-}
-
-export class GetUserResponse extends jspb.Message {
-  getSuccess(): boolean;
-  setSuccess(value: boolean): GetUserResponse;
-
-  getPublicUser(): PublicUser | undefined;
-  setPublicUser(value?: PublicUser): GetUserResponse;
-  hasPublicUser(): boolean;
-  clearPublicUser(): GetUserResponse;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetUserResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: GetUserResponse): GetUserResponse.AsObject;
-  static serializeBinaryToWriter(message: GetUserResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetUserResponse;
-  static deserializeBinaryFromReader(message: GetUserResponse, reader: jspb.BinaryReader): GetUserResponse;
-}
-
-export namespace GetUserResponse {
-  export type AsObject = {
-    success: boolean,
-    publicUser?: PublicUser.AsObject,
+    user?: User.AsObject,
   }
 }
 
@@ -322,8 +272,8 @@ export class CreateUserResponse extends jspb.Message {
   getSuccess(): boolean;
   setSuccess(value: boolean): CreateUserResponse;
 
-  getUser(): PublicUser | undefined;
-  setUser(value?: PublicUser): CreateUserResponse;
+  getUser(): User | undefined;
+  setUser(value?: User): CreateUserResponse;
   hasUser(): boolean;
   clearUser(): CreateUserResponse;
 
@@ -341,28 +291,8 @@ export class CreateUserResponse extends jspb.Message {
 export namespace CreateUserResponse {
   export type AsObject = {
     success: boolean,
-    user?: PublicUser.AsObject,
+    user?: User.AsObject,
     verificationCode: string,
-  }
-}
-
-export class GetUserByTokenRequest extends jspb.Message {
-  getToken(): Token | undefined;
-  setToken(value?: Token): GetUserByTokenRequest;
-  hasToken(): boolean;
-  clearToken(): GetUserByTokenRequest;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetUserByTokenRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: GetUserByTokenRequest): GetUserByTokenRequest.AsObject;
-  static serializeBinaryToWriter(message: GetUserByTokenRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetUserByTokenRequest;
-  static deserializeBinaryFromReader(message: GetUserByTokenRequest, reader: jspb.BinaryReader): GetUserByTokenRequest;
-}
-
-export namespace GetUserByTokenRequest {
-  export type AsObject = {
-    token?: Token.AsObject,
   }
 }
 
@@ -402,8 +332,8 @@ export class UpdateUserResponse extends jspb.Message {
   getSuccess(): boolean;
   setSuccess(value: boolean): UpdateUserResponse;
 
-  getNewUser(): PublicUser | undefined;
-  setNewUser(value?: PublicUser): UpdateUserResponse;
+  getNewUser(): User | undefined;
+  setNewUser(value?: User): UpdateUserResponse;
   hasNewUser(): boolean;
   clearNewUser(): UpdateUserResponse;
 
@@ -418,7 +348,7 @@ export class UpdateUserResponse extends jspb.Message {
 export namespace UpdateUserResponse {
   export type AsObject = {
     success: boolean,
-    newUser?: PublicUser.AsObject,
+    newUser?: User.AsObject,
   }
 }
 

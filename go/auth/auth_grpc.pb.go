@@ -26,9 +26,10 @@ type AuthServiceClient interface {
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error)
-	GetUserByToken(ctx context.Context, in *GetUserByTokenRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	GetUserByEmail(ctx context.Context, in *GetUserByEmailRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	GetUserByUsername(ctx context.Context, in *GetUserByUsernameRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
+	GetUserByToken(ctx context.Context, in *GetUserByTokenRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
+	GetUserByID(ctx context.Context, in *GetUserByIDRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	VerifyUser(ctx context.Context, in *VerifyUserRequest, opts ...grpc.CallOption) (*VerifyUserResponse, error)
 }
 
@@ -76,15 +77,6 @@ func (c *authServiceClient) DeleteUser(ctx context.Context, in *DeleteUserReques
 	return out, nil
 }
 
-func (c *authServiceClient) GetUserByToken(ctx context.Context, in *GetUserByTokenRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
-	out := new(GetUserResponse)
-	err := c.cc.Invoke(ctx, "/auth.AuthService/GetUserByToken", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *authServiceClient) GetUserByEmail(ctx context.Context, in *GetUserByEmailRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
 	out := new(GetUserResponse)
 	err := c.cc.Invoke(ctx, "/auth.AuthService/GetUserByEmail", in, out, opts...)
@@ -97,6 +89,24 @@ func (c *authServiceClient) GetUserByEmail(ctx context.Context, in *GetUserByEma
 func (c *authServiceClient) GetUserByUsername(ctx context.Context, in *GetUserByUsernameRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
 	out := new(GetUserResponse)
 	err := c.cc.Invoke(ctx, "/auth.AuthService/GetUserByUsername", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) GetUserByToken(ctx context.Context, in *GetUserByTokenRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
+	out := new(GetUserResponse)
+	err := c.cc.Invoke(ctx, "/auth.AuthService/GetUserByToken", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) GetUserByID(ctx context.Context, in *GetUserByIDRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
+	out := new(GetUserResponse)
+	err := c.cc.Invoke(ctx, "/auth.AuthService/GetUserByID", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -120,9 +130,10 @@ type AuthServiceServer interface {
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error)
-	GetUserByToken(context.Context, *GetUserByTokenRequest) (*GetUserResponse, error)
 	GetUserByEmail(context.Context, *GetUserByEmailRequest) (*GetUserResponse, error)
 	GetUserByUsername(context.Context, *GetUserByUsernameRequest) (*GetUserResponse, error)
+	GetUserByToken(context.Context, *GetUserByTokenRequest) (*GetUserResponse, error)
+	GetUserByID(context.Context, *GetUserByIDRequest) (*GetUserResponse, error)
 	VerifyUser(context.Context, *VerifyUserRequest) (*VerifyUserResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
@@ -143,14 +154,17 @@ func (UnimplementedAuthServiceServer) UpdateUser(context.Context, *UpdateUserReq
 func (UnimplementedAuthServiceServer) DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
 }
-func (UnimplementedAuthServiceServer) GetUserByToken(context.Context, *GetUserByTokenRequest) (*GetUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserByToken not implemented")
-}
 func (UnimplementedAuthServiceServer) GetUserByEmail(context.Context, *GetUserByEmailRequest) (*GetUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserByEmail not implemented")
 }
 func (UnimplementedAuthServiceServer) GetUserByUsername(context.Context, *GetUserByUsernameRequest) (*GetUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserByUsername not implemented")
+}
+func (UnimplementedAuthServiceServer) GetUserByToken(context.Context, *GetUserByTokenRequest) (*GetUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByToken not implemented")
+}
+func (UnimplementedAuthServiceServer) GetUserByID(context.Context, *GetUserByIDRequest) (*GetUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByID not implemented")
 }
 func (UnimplementedAuthServiceServer) VerifyUser(context.Context, *VerifyUserRequest) (*VerifyUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyUser not implemented")
@@ -240,24 +254,6 @@ func _AuthService_DeleteUser_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_GetUserByToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserByTokenRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServiceServer).GetUserByToken(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/auth.AuthService/GetUserByToken",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).GetUserByToken(ctx, req.(*GetUserByTokenRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _AuthService_GetUserByEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetUserByEmailRequest)
 	if err := dec(in); err != nil {
@@ -290,6 +286,42 @@ func _AuthService_GetUserByUsername_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AuthServiceServer).GetUserByUsername(ctx, req.(*GetUserByUsernameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_GetUserByToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserByTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).GetUserByToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/auth.AuthService/GetUserByToken",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).GetUserByToken(ctx, req.(*GetUserByTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_GetUserByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).GetUserByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/auth.AuthService/GetUserByID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).GetUserByID(ctx, req.(*GetUserByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -336,10 +368,6 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AuthService_DeleteUser_Handler,
 		},
 		{
-			MethodName: "GetUserByToken",
-			Handler:    _AuthService_GetUserByToken_Handler,
-		},
-		{
 			MethodName: "GetUserByEmail",
 			Handler:    _AuthService_GetUserByEmail_Handler,
 		},
@@ -348,130 +376,16 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AuthService_GetUserByUsername_Handler,
 		},
 		{
-			MethodName: "VerifyUser",
-			Handler:    _AuthService_VerifyUser_Handler,
-		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "auth/auth.proto",
-}
-
-// PrivateServiceClient is the client API for PrivateService service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type PrivateServiceClient interface {
-	GetUserByToken(ctx context.Context, in *PrivateGetUserByTokenRequest, opts ...grpc.CallOption) (*PrivateGetUserResponse, error)
-	GetUserByID(ctx context.Context, in *PrivateGetUserByIDRequest, opts ...grpc.CallOption) (*PrivateGetUserResponse, error)
-}
-
-type privateServiceClient struct {
-	cc grpc.ClientConnInterface
-}
-
-func NewPrivateServiceClient(cc grpc.ClientConnInterface) PrivateServiceClient {
-	return &privateServiceClient{cc}
-}
-
-func (c *privateServiceClient) GetUserByToken(ctx context.Context, in *PrivateGetUserByTokenRequest, opts ...grpc.CallOption) (*PrivateGetUserResponse, error) {
-	out := new(PrivateGetUserResponse)
-	err := c.cc.Invoke(ctx, "/auth.PrivateService/GetUserByToken", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *privateServiceClient) GetUserByID(ctx context.Context, in *PrivateGetUserByIDRequest, opts ...grpc.CallOption) (*PrivateGetUserResponse, error) {
-	out := new(PrivateGetUserResponse)
-	err := c.cc.Invoke(ctx, "/auth.PrivateService/GetUserByID", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// PrivateServiceServer is the server API for PrivateService service.
-// All implementations must embed UnimplementedPrivateServiceServer
-// for forward compatibility
-type PrivateServiceServer interface {
-	GetUserByToken(context.Context, *PrivateGetUserByTokenRequest) (*PrivateGetUserResponse, error)
-	GetUserByID(context.Context, *PrivateGetUserByIDRequest) (*PrivateGetUserResponse, error)
-	mustEmbedUnimplementedPrivateServiceServer()
-}
-
-// UnimplementedPrivateServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedPrivateServiceServer struct {
-}
-
-func (UnimplementedPrivateServiceServer) GetUserByToken(context.Context, *PrivateGetUserByTokenRequest) (*PrivateGetUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserByToken not implemented")
-}
-func (UnimplementedPrivateServiceServer) GetUserByID(context.Context, *PrivateGetUserByIDRequest) (*PrivateGetUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserByID not implemented")
-}
-func (UnimplementedPrivateServiceServer) mustEmbedUnimplementedPrivateServiceServer() {}
-
-// UnsafePrivateServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to PrivateServiceServer will
-// result in compilation errors.
-type UnsafePrivateServiceServer interface {
-	mustEmbedUnimplementedPrivateServiceServer()
-}
-
-func RegisterPrivateServiceServer(s grpc.ServiceRegistrar, srv PrivateServiceServer) {
-	s.RegisterService(&PrivateService_ServiceDesc, srv)
-}
-
-func _PrivateService_GetUserByToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PrivateGetUserByTokenRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PrivateServiceServer).GetUserByToken(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/auth.PrivateService/GetUserByToken",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PrivateServiceServer).GetUserByToken(ctx, req.(*PrivateGetUserByTokenRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PrivateService_GetUserByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PrivateGetUserByIDRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PrivateServiceServer).GetUserByID(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/auth.PrivateService/GetUserByID",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PrivateServiceServer).GetUserByID(ctx, req.(*PrivateGetUserByIDRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-// PrivateService_ServiceDesc is the grpc.ServiceDesc for PrivateService service.
-// It's only intended for direct use with grpc.RegisterService,
-// and not to be introspected or modified (even as a copy)
-var PrivateService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "auth.PrivateService",
-	HandlerType: (*PrivateServiceServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
 			MethodName: "GetUserByToken",
-			Handler:    _PrivateService_GetUserByToken_Handler,
+			Handler:    _AuthService_GetUserByToken_Handler,
 		},
 		{
 			MethodName: "GetUserByID",
-			Handler:    _PrivateService_GetUserByID_Handler,
+			Handler:    _AuthService_GetUserByID_Handler,
+		},
+		{
+			MethodName: "VerifyUser",
+			Handler:    _AuthService_VerifyUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

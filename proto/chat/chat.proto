@@ -6,10 +6,6 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "chat/";
 
-message Token {
-  bytes token = 1;
-}
-
 message Message {
   string chatID = 1;
   string text = 2;
@@ -26,8 +22,7 @@ service ChatService {
 
 
 message StreamRequest {
-  Token token = 1;
-  Message msg = 2;
+  Message msg = 1; // token in metadata
 }
 
 
